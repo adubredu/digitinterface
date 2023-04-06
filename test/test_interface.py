@@ -21,7 +21,7 @@ while True:
 
 digit = DigitInterface(client)
 
-task = "move to waypoint"
+task = "sequential actions"
 
 if task == "wrist pose":
     left_wrist_pose = digit.get_wrist_pose("left")
@@ -58,6 +58,32 @@ elif task == "move to waypoint":
     desired_waypoint = [1.57, 5.0, 5.0]
     digit.move_to_waypoint(desired_waypoint, avoid_obstacles=False)
     sleep(20)
+
+elif task == "move torso to pose":
+    desired_pose = [0.3, 0.4, 0.0, 0.0, 0.0, 0.7]
+    digit.move_torso_to_pose(desired_pose)
+    sleep(10)
+
+elif task == "concurrent actions":
+    left_wrist_pose = [0.0, 0.0, 0.0, 0.2, 0.3, 0.2] #[roll,pitch,yaw,x,y,z]
+    act1 = digit.move_wrist_to_pose(left_wrist_pose, "left", duration=1.0)
+    right_wrist_pose = [0.0, 0.0, 0.0, 0.2, -0.3, 0.2] #[roll,pitch,yaw,x,y,z]
+    act2 = digit.move_wrist_to_pose(right_wrist_pose, "right", duration=1.0)
+    desired_pose = [0.3, 0.4, 0.0, 0.0, 0.0, 0.7]
+    act3 = digit.move_torso_to_pose(desired_pose)
+    digit.perform_actions_concurrently([act1, act2, act3])
+    sleep(20)
+
+elif task == "sequential actions":
+    left_wrist_pose = [0.0, 0.0, 0.0, 0.2, 0.3, 0.2] #[roll,pitch,yaw,x,y,z]
+    act1 = digit.move_wrist_to_pose(left_wrist_pose, "left", duration=1.0)
+    right_wrist_pose = [0.0, 0.0, 0.0, 0.2, -0.3, 0.2] #[roll,pitch,yaw,x,y,z]
+    act2 = digit.move_wrist_to_pose(right_wrist_pose, "right", duration=1.0)
+    desired_pose = [0.3, 0.4, 0.0, 0.0, 0.0, 0.7]
+    act3 = digit.move_torso_to_pose(desired_pose)
+    digit.perform_actions_sequentially([act1, act2, act3])
+    sleep(20)
+
 
 sleep(5)
 client.close()

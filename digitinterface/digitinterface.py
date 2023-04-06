@@ -83,27 +83,7 @@ class DigitInterface:
         self.arm_id = {'right':0, 'left':1}
 
 # arm motion
-    def _send_wrist_msg(self, pose, armname, duration=2.0):
-        """This is a docstring for the some_method method."""
-        arm = self.armname[armname]
-        msg = ["action-end-effector-move",
-          {
-            "end-effector": arm,
-            "waypoints": [
-                          {"rpyxyz":[*pose]},
-                          {"rpyxyz":[*pose]}],
-            "reference-frame": {
-              "robot-frame": "base"
-            },
-            "stall-threshold": None,
-            "cyclic": False,
-            "max-speed": 0.5,
-            "duration": duration,
-            "transition-duration": None
-          }, 0] 
-        self.client.send(json.dumps(msg))
-
-    def move_both_wrists_to_pose(self, lpose, rpose, duration=2.0):
+    def move_both_wrists_to_pose(self, lpose, rpose, duration=2.0, execute=True):
         """Moves both wrists concurrently to the specified poses
 
             :param List{float} lpose: The desired pose of the left wrist in a python List formatted as 
@@ -113,6 +93,12 @@ class DigitInterface:
                     [roll pitch yaw x y z] 
 
             :param float duration: The desired duration of the entire motion in seconds. 
+
+            :param bool execute: Whether or not to execute this action 
+
+            :returns: The JSON message command in Python syntax 
+
+            :rtype: List{Dict}
              
         """
         msg = ["action-concurrent",
@@ -151,9 +137,10 @@ class DigitInterface:
                     ]
                 }
         ]
-        self.client.send(json.dumps(msg))
+        if execute: self.client.send(json.dumps(msg))
+        return msg
 
-    def move_wrist_to_pose(self, pose, armname, duration=2.0):  
+    def move_wrist_to_pose(self, pose, armname, duration=2.0, execute=True):  
         """Moves the specified wrist to the specified pose
 
             :param List{float} pose: The desired pose of the wrist in a python List formatted as 
@@ -162,11 +149,33 @@ class DigitInterface:
             :param string armname: "left" or "right"
 
             :param float duration: The desired duration of the entire motion in seconds. 
-             
-        """
-        self._send_wrist_msg([*pose], armname, duration=duration)  
 
-    def move_both_arms_sequentially_to_pose(self, pose, armname, prevarmname, prevarmpose, duration=2.0):
+            :param bool execute: Whether or not to execute this action 
+             
+            :returns: The JSON message command in Python syntax 
+
+            :rtype: List{Dict} 
+        """
+        arm = self.armname[armname]
+        msg = ["action-end-effector-move",
+          {
+            "end-effector": arm,
+            "waypoints": [
+                          {"rpyxyz":[*pose]},
+                          {"rpyxyz":[*pose]}],
+            "reference-frame": {
+              "robot-frame": "base"
+            },
+            "stall-threshold": None,
+            "cyclic": False,
+            "max-speed": 0.5,
+            "duration": duration,
+            "transition-duration": None
+          }, 0] 
+        if execute: self.client.send(json.dumps(msg)) 
+        return msg
+
+    def move_both_arms_sequentially_to_pose(self, pose, armname, prevarmname, prevarmpose, duration=2.0, execute=True):
         """Maintains the pose of one wrist as the other wrist moves to a 
             specified pose
 
@@ -181,7 +190,12 @@ class DigitInterface:
                     [roll pitch yaw x y z] 
 
             :param float duration: The desired duration of the entire motion in seconds. 
+
+            :param bool execute: Whether or not to execute this action 
              
+            :returns: The JSON message command in Python syntax 
+
+            :rtype: List{Dict}
         """
         current_arm = self.armname[armname]
         previous_arm = self.armname[prevarmname]
@@ -221,7 +235,8 @@ class DigitInterface:
                     ]
                 }
         ]
-        self.client.send(json.dumps(msg))  
+        if execute: self.client.send(json.dumps(msg))  
+        return msg
 
     def get_wrist_pose(self, armname, reference_frame="base"):
         """Returns the pose rpyxyz of the wrist of Digit
@@ -229,7 +244,7 @@ class DigitInterface:
             :param string armname: "left" or "right"
 
             :param string reference_frame: Frame of reference of the wrist pose. 
-                    The default is "base" which is the pelvis of Digit.
+                    The default is "base" which is the pelvis of Digit. 
             
             :returns: The pose of the wrist in a python List formatted as 
                     [roll pitch yaw x y z] 
@@ -266,11 +281,17 @@ class DigitInterface:
 
 # locomotion
     def move_to_waypoint(self, waypoint, position_tolerance=0.2, orientation_tolerance=0.2,
-                        avoid_obstacles=True, obstacle_threshold=0.5, reference_frame="world"):
+                        avoid_obstacles=True, obstacle_threshold=0.5, reference_frame="world", execute=True):
         """Commands the robot to move to a desired waypoint  
 
             :param List{float} waypoint: target waypoint to walk to in the specified reference frame
                      in a python List formatted as [yaw, x, y]
+
+            :param bool execute: Whether or not to execute this action 
+
+            :returns: The JSON message command in Python syntax 
+
+            :rtype: List{Dict}
         """
         msg = [
             "action-goto",
@@ -285,13 +306,22 @@ class DigitInterface:
                 }
             }
         ] 
-        self.client.send(json.dumps(msg))
+        if execute: self.client.send(json.dumps(msg))
+        return msg
 
-    def move_at_velocity(self, velocity, avoid_obstacles=True, obstacle_threshold=0.5):
+    def move_at_velocity(self, velocity, avoid_obstacles=True, obstacle_threshold=0.5, execute=True):
         """Commands the robot to move at a desired velocity  
 
             :param List{float} waypoint: spatial velocity of the robot's base in
                         a python List formatted as [yaw_velocity, vx, vy]
+
+            :param bool execute: Whether or not to execute this action 
+
+            :param bool execute: Whether or not to execute this action 
+            
+            :returns: The JSON message command in Python syntax 
+
+            :rtype: List{Dict}
         """
         msg = [
             "action-move",
@@ -303,17 +333,67 @@ class DigitInterface:
                 }
             }
         ]
-        self.client.send(json.dumps(msg))
+        if execute: self.client.send(json.dumps(msg))
+        return msg
 
-# miscellaneous motions
-    def bow(self):
-        """This is a docstring for the some_method method."""
-        pass 
+# miscellaneous motions 
+    def move_torso_to_pose(self, pose, duration=5.0, execute=True):
+        """Commands the torso to move to a specified position and 
+        orientation relative to the center of the robot's support polygon
 
-    def squat(self):
-        """This is a docstring for the some_method method."""
-        pass 
+        :param List{float} pose: The desired pose of the torso in a python List formatted as 
+                    [roll pitch yaw x y z]  
 
-    def torso_spin(self):
-        """This is a docstring for the some_method method."""
-        pass
+        :param float duration: The desired duration of the entire motion in seconds.
+
+        :param bool execute: Whether or not to execute this action 
+
+        :returns: The JSON message command in Python syntax 
+
+        :rtype: List{Dict} 
+        """
+        msg = [
+            "action-stand",
+            {
+                "base-pose":{"rpyxyz":[*pose]},
+                "duration":duration
+            }
+        ]
+        if execute: self.client.send(json.dumps(msg))
+        return msg
+
+    def perform_actions_concurrently(self, actions, execute=True):
+        """Execute a list of actions simultaneously
+
+        :param List{List{Dict}} actions: A list of JSON message commands in Python syntax
+
+        :param bool execute: Whether or not to execute this action
+
+        :returns: The JSON message command in Python syntax 
+
+        :rtype: List{Dict}
+        
+        """
+        msg = ["action-concurrent",
+                {"actions": actions}
+        ]
+        if execute: self.client.send(json.dumps(msg))
+        return msg
+
+    def perform_actions_sequentially(self, actions, execute=True):
+        """Execute a list of actions sequentially
+
+        :param List{List{Dict}} actions: A list of JSON message commands in Python syntax
+
+        :param bool execute: Whether or not to execute this action
+
+        :returns: The JSON message command in Python syntax 
+
+        :rtype: List{Dict}
+        
+        """
+        msg = ["action-sequential",
+                {"actions": actions}
+        ]
+        if execute: self.client.send(json.dumps(msg))
+        return msg
