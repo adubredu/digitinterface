@@ -2,9 +2,11 @@ from digitinterface import BasicClient
 from digitinterface import DigitInterface
 from time import sleep
 
+# websocket URIs
 ip_real = "ws://10.10.1.1:8080"
 ip_sim = "ws://127.0.0.1:8080"
 
+# connect to the AR Digit server
 client = BasicClient(ip_sim, protocols=["json-v1-agility"])
 client.daemon = False 
 while True:
@@ -17,6 +19,7 @@ while True:
         print('WS connection NOT established')
         sleep(1)
 
+# create a DigitInterface object
 digit = DigitInterface(client)
  
 # You can set this `task` variable to any of the following strings:
@@ -88,4 +91,6 @@ elif task == "sequential actions":
 
 
 sleep(5)
+
+# close the web socket connection
 client.close()
