@@ -98,7 +98,7 @@ class DigitInterface:
 
             :returns: The JSON message command in Python syntax 
 
-            :rtype: List{Dict}
+            :rtype: list
              
         """
         msg = ["action-concurrent",
@@ -154,7 +154,7 @@ class DigitInterface:
              
             :returns: The JSON message command in Python syntax 
 
-            :rtype: List{Dict} 
+            :rtype: list 
         """
         arm = self.armname[armname]
         msg = ["action-end-effector-move",
@@ -195,7 +195,7 @@ class DigitInterface:
              
             :returns: The JSON message command in Python syntax 
 
-            :rtype: List{Dict}
+            :rtype: list
         """
         current_arm = self.armname[armname]
         previous_arm = self.armname[prevarmname]
@@ -291,7 +291,7 @@ class DigitInterface:
 
             :returns: The JSON message command in Python syntax 
 
-            :rtype: List{Dict}
+            :rtype: list
         """
         msg = [
             "action-goto",
@@ -321,7 +321,7 @@ class DigitInterface:
             
             :returns: The JSON message command in Python syntax 
 
-            :rtype: List{Dict}
+            :rtype: list
         """
         msg = [
             "action-move",
@@ -350,7 +350,7 @@ class DigitInterface:
 
         :returns: The JSON message command in Python syntax 
 
-        :rtype: List{Dict} 
+        :rtype: list 
         """
         msg = [
             "action-stand",
@@ -365,13 +365,13 @@ class DigitInterface:
     def perform_actions_concurrently(self, actions, execute=True):
         """Execute a list of actions simultaneously
 
-        :param List{List{Dict}} actions: A list of JSON message commands in Python syntax
+        :param list actions: A list of JSON message commands in Python syntax
 
         :param bool execute: Whether or not to execute this action
 
         :returns: The JSON message command in Python syntax 
 
-        :rtype: List{Dict}
+        :rtype: list
         
         """
         msg = ["action-concurrent",
@@ -383,13 +383,13 @@ class DigitInterface:
     def perform_actions_sequentially(self, actions, execute=True):
         """Execute a list of actions sequentially
 
-        :param List{List{Dict}} actions: A list of JSON message commands in Python syntax
+        :param list actions: A list of JSON message commands in Python syntax
 
         :param bool execute: Whether or not to execute this action
 
         :returns: The JSON message command in Python syntax 
 
-        :rtype: List{Dict}
+        :rtype: list
         
         """
         msg = ["action-sequential",
