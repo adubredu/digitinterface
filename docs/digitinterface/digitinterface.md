@@ -169,7 +169,7 @@ Commands the robot to move at a desired velocity
 
 The JSON message command in Python syntax
 
-Type: *List{Dict}*
+Type: *list*
 
 #### Signature
 
@@ -207,7 +207,7 @@ specified pose
 
 The JSON message command in Python syntax
 
-Type: *List{Dict}*
+Type: *list*
 
 #### Signature
 
@@ -240,7 +240,7 @@ Moves both wrists concurrently to the specified poses
 
 The JSON message command in Python syntax
 
-Type: *List{Dict}*
+Type: *list*
 
 #### Signature
 
@@ -266,7 +266,7 @@ Commands the robot to move to a desired waypoint
 
 The JSON message command in Python syntax
 
-Type: *List{Dict}*
+Type: *list*
 
 #### Signature
 
@@ -304,7 +304,7 @@ orientation relative to the center of the robot's support polygon
 
 The JSON message command in Python syntax
 
-Type: *List{Dict}*
+Type: *list*
 
 #### Signature
 
@@ -334,7 +334,7 @@ Moves the specified wrist to the specified pose
 
 The JSON message command in Python syntax
 
-Type: *List{Dict}*
+Type: *list*
 
 #### Signature
 
@@ -362,9 +362,9 @@ def open_gripper(self, armname):
 
 Execute a list of actions simultaneously
 
-:param List{List{Dict}} actions: A list of JSON message commands in Python syntax
-
 #### Arguments
+
+- `actions` *list* - A list of JSON message commands in Python syntax
 
 - `execute` *bool* - Whether or not to execute this action
 
@@ -372,7 +372,7 @@ Execute a list of actions simultaneously
 
 The JSON message command in Python syntax
 
-Type: *List{Dict}*
+Type: *list*
 
 #### Signature
 
@@ -387,9 +387,9 @@ def perform_actions_concurrently(self, actions, execute=True):
 
 Execute a list of actions sequentially
 
-:param List{List{Dict}} actions: A list of JSON message commands in Python syntax
-
 #### Arguments
+
+- `actions` *list* - A list of JSON message commands in Python syntax
 
 - `execute` *bool* - Whether or not to execute this action
 
@@ -397,7 +397,7 @@ Execute a list of actions sequentially
 
 The JSON message command in Python syntax
 
-Type: *List{Dict}*
+Type: *list*
 
 #### Signature
 
