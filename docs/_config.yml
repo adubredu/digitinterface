@@ -1,4 +1,4 @@
-theme: jekyll-theme-cayman
+theme: sphinx-rtd-theme
 show_downloads: true
 source: "https://github.com/adubredu/digitinterface"
 highlighter: rouge
