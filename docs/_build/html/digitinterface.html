@@ -57,7 +57,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#digitinterface.digitinterface.DigitInterface.get_wrist_pose"><code class="docutils literal notranslate"><span class="pre">DigitInterface.get_wrist_pose()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#digitinterface.digitinterface.DigitInterface.move_at_velocity"><code class="docutils literal notranslate"><span class="pre">DigitInterface.move_at_velocity()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#digitinterface.digitinterface.DigitInterface.move_both_arms_sequentially_to_pose"><code class="docutils literal notranslate"><span class="pre">DigitInterface.move_both_arms_sequentially_to_pose()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#digitinterface.digitinterface.DigitInterface.move_both_arms_to_pose"><code class="docutils literal notranslate"><span class="pre">DigitInterface.move_both_arms_to_pose()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#digitinterface.digitinterface.DigitInterface.move_both_wrists_to_pose"><code class="docutils literal notranslate"><span class="pre">DigitInterface.move_both_wrists_to_pose()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#digitinterface.digitinterface.DigitInterface.move_to_waypoint"><code class="docutils literal notranslate"><span class="pre">DigitInterface.move_to_waypoint()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#digitinterface.digitinterface.DigitInterface.move_wrist_to_pose"><code class="docutils literal notranslate"><span class="pre">DigitInterface.move_wrist_to_pose()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#digitinterface.digitinterface.DigitInterface.open_gripper"><code class="docutils literal notranslate"><span class="pre">DigitInterface.open_gripper()</span></code></a></li>
@@ -165,8 +165,24 @@ to request command privilege for the user.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="digitinterface.digitinterface.DigitInterface.get_wrist_pose">
-<span class="sig-name descname"><span class="pre">get_wrist_pose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">armname</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/digitinterface/digitinterface.html#DigitInterface.get_wrist_pose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#digitinterface.digitinterface.DigitInterface.get_wrist_pose" title="Permalink to this definition"></a></dt>
-<dd><p>This is a docstring for the some_method method.</p>
+<span class="sig-name descname"><span class="pre">get_wrist_pose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">armname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'base'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/digitinterface/digitinterface.html#DigitInterface.get_wrist_pose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#digitinterface.digitinterface.DigitInterface.get_wrist_pose" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the pose rpyxyz of the wrist of Digit</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>armname</strong> (<em>string</em>) – “left” or “right”</p></li>
+<li><p><strong>reference_frame</strong> (<em>string</em>) – Frame of reference of the wrist pose.
+The default is “base” which is the pelvis of Digit.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The pose of the wrist in a python List formatted as
+[roll pitch yaw x y z]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List{Float64}</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -178,13 +194,38 @@ to request command privilege for the user.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="digitinterface.digitinterface.DigitInterface.move_both_arms_sequentially_to_pose">
 <span class="sig-name descname"><span class="pre">move_both_arms_sequentially_to_pose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pose</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">armname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prevarmname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prevarmpose</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/digitinterface/digitinterface.html#DigitInterface.move_both_arms_sequentially_to_pose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#digitinterface.digitinterface.DigitInterface.move_both_arms_sequentially_to_pose" title="Permalink to this definition"></a></dt>
-<dd><p>This is a docstring for the some_method method.</p>
+<dd><p>Maintains the pose of one wrist as the other wrist moves to a
+specified pose</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pose</strong> (<em>List{float}</em>) – The desired pose of the target wrist in a python List formatted as
+[roll pitch yaw x y z]</p></li>
+<li><p><strong>armname</strong> (<em>string</em>) – “left” or “right”. The name of the target wrist</p></li>
+<li><p><strong>prevarmname</strong> (<em>string</em>) – “left” or “right”. The name of the other arm</p></li>
+<li><p><strong>prevarmpose</strong> (<em>List{float}</em>) – The pose at which to maintain the other arm in a python List formatted as
+[roll pitch yaw x y z]</p></li>
+<li><p><strong>duration</strong> (<em>float</em>) – The desired duration of the entire motion in seconds.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="digitinterface.digitinterface.DigitInterface.move_both_arms_to_pose">
-<span class="sig-name descname"><span class="pre">move_both_arms_to_pose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lpose</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rpose</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/digitinterface/digitinterface.html#DigitInterface.move_both_arms_to_pose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#digitinterface.digitinterface.DigitInterface.move_both_arms_to_pose" title="Permalink to this definition"></a></dt>
-<dd><p>This is a docstring for the some_method method.</p>
+<dt class="sig sig-object py" id="digitinterface.digitinterface.DigitInterface.move_both_wrists_to_pose">
+<span class="sig-name descname"><span class="pre">move_both_wrists_to_pose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lpose</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rpose</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/digitinterface/digitinterface.html#DigitInterface.move_both_wrists_to_pose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#digitinterface.digitinterface.DigitInterface.move_both_wrists_to_pose" title="Permalink to this definition"></a></dt>
+<dd><p>Moves both wrists concurrently to the specified poses</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lpose</strong> (<em>List{float}</em>) – The desired pose of the left wrist in a python List formatted as
+[roll pitch yaw x y z]</p></li>
+<li><p><strong>rpose</strong> (<em>List{float}</em>) – The desired pose of the right wrist in a python List formatted as
+[roll pitch yaw x y z]</p></li>
+<li><p><strong>duration</strong> (<em>float</em>) – The desired duration of the entire motion in seconds.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -196,7 +237,17 @@ to request command privilege for the user.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="digitinterface.digitinterface.DigitInterface.move_wrist_to_pose">
 <span class="sig-name descname"><span class="pre">move_wrist_to_pose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pose</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">armname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/digitinterface/digitinterface.html#DigitInterface.move_wrist_to_pose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#digitinterface.digitinterface.DigitInterface.move_wrist_to_pose" title="Permalink to this definition"></a></dt>
-<dd><p>This is a docstring for the some_method method.</p>
+<dd><p>Moves the specified wrist to the specified pose</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pose</strong> (<em>List{float}</em>) – The desired pose of the wrist in a python List formatted as
+[roll pitch yaw x y z]</p></li>
+<li><p><strong>armname</strong> (<em>string</em>) – “left” or “right”</p></li>
+<li><p><strong>duration</strong> (<em>float</em>) – The desired duration of the entire motion in seconds.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">

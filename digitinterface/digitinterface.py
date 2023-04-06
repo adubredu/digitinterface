@@ -109,7 +109,7 @@ class DigitInterface:
             :param List{float} lpose: The desired pose of the left wrist in a python List formatted as 
                     [roll pitch yaw x y z] 
 
-            param List{float} rpose: The desired pose of the right wrist in a python List formatted as 
+            :param List{float} rpose: The desired pose of the right wrist in a python List formatted as 
                     [roll pitch yaw x y z] 
 
             :param float duration: The desired duration of the entire motion in seconds. 
@@ -231,10 +231,10 @@ class DigitInterface:
             :param string reference_frame: Frame of reference of the wrist pose. 
                     The default is "base" which is the pelvis of Digit.
             
-            :returns The pose of the wrist in a python List formatted as 
+            :returns: The pose of the wrist in a python List formatted as 
                     [roll pitch yaw x y z] 
 
-            :rtype List{Float64} 
+            :rtype: List{Float64} 
         """
         arm = self.armname[armname]
         msg = [
@@ -265,13 +265,45 @@ class DigitInterface:
 
 
 # locomotion
-    def move_to_waypoint(self, waypoint):
-        """This is a docstring for the some_method method."""
-        pass 
+    def move_to_waypoint(self, waypoint, position_tolerance=0.2, orientation_tolerance=0.2,
+                        avoid_obstacles=True, obstacle_threshold=0.5, reference_frame="world"):
+        """Commands the robot to move to a desired waypoint  
 
-    def move_at_velocity(self, velocity):
-        """This is a docstring for the some_method method."""
-        pass
+            :param List{float} waypoint: target waypoint to walk to in the specified reference frame
+                     in a python List formatted as [yaw, x, y]
+        """
+        msg = [
+            "action-goto",
+            {
+                "target":{"rpyxyz":[0.0, 0.0, waypoint[0], waypoint[1], waypoint[2], 0.0]},
+                "position-tolerance":position_tolerance,
+                "orientation-tolerance":orientation_tolerance,
+                "reference-frame":{"special-frame":reference_frame},
+                "mobility-parameters":{
+                    "avoid-obstacles":avoid_obstacles,
+                    "obstacle-threshold":obstacle_threshold
+                }
+            }
+        ] 
+        self.client.send(json.dumps(msg))
+
+    def move_at_velocity(self, velocity, avoid_obstacles=True, obstacle_threshold=0.5):
+        """Commands the robot to move at a desired velocity  
+
+            :param List{float} waypoint: spatial velocity of the robot's base in
+                        a python List formatted as [yaw_velocity, vx, vy]
+        """
+        msg = [
+            "action-move",
+            {
+                "velocity":{"rpyxyz":[0.0, 0.0, velocity[0], velocity[1], velocity[2], 0.0]},
+                "mobility-parameters":{
+                    "avoid-obstacles":avoid_obstacles,
+                    "obstacle-threshold":obstacle_threshold
+                }
+            }
+        ]
+        self.client.send(json.dumps(msg))
 
 # miscellaneous motions
     def bow(self):

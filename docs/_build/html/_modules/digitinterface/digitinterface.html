@@ -175,8 +175,18 @@
           <span class="p">},</span> <span class="mi">0</span><span class="p">]</span> 
         <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
 
-<div class="viewcode-block" id="DigitInterface.move_both_arms_to_pose"><a class="viewcode-back" href="../../digitinterface.html#digitinterface.digitinterface.DigitInterface.move_both_arms_to_pose">[docs]</a>    <span class="k">def</span> <span class="nf">move_both_arms_to_pose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lpose</span><span class="p">,</span> <span class="n">rpose</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mf">2.0</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;This is a docstring for the some_method method.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="DigitInterface.move_both_wrists_to_pose"><a class="viewcode-back" href="../../digitinterface.html#digitinterface.digitinterface.DigitInterface.move_both_wrists_to_pose">[docs]</a>    <span class="k">def</span> <span class="nf">move_both_wrists_to_pose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lpose</span><span class="p">,</span> <span class="n">rpose</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mf">2.0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Moves both wrists concurrently to the specified poses</span>
+
+<span class="sd">            :param List{float} lpose: The desired pose of the left wrist in a python List formatted as </span>
+<span class="sd">                    [roll pitch yaw x y z] </span>
+
+<span class="sd">            :param List{float} rpose: The desired pose of the right wrist in a python List formatted as </span>
+<span class="sd">                    [roll pitch yaw x y z] </span>
+
+<span class="sd">            :param float duration: The desired duration of the entire motion in seconds. </span>
+<span class="sd">             </span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;action-concurrent&quot;</span><span class="p">,</span>
                 <span class="p">{</span>
                     <span class="s2">&quot;actions&quot;</span><span class="p">:</span> <span class="p">[</span>
@@ -216,11 +226,35 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="DigitInterface.move_wrist_to_pose"><a class="viewcode-back" href="../../digitinterface.html#digitinterface.digitinterface.DigitInterface.move_wrist_to_pose">[docs]</a>    <span class="k">def</span> <span class="nf">move_wrist_to_pose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pose</span><span class="p">,</span> <span class="n">armname</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mf">2.0</span><span class="p">):</span>  
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;This is a docstring for the some_method method.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Moves the specified wrist to the specified pose</span>
+
+<span class="sd">            :param List{float} pose: The desired pose of the wrist in a python List formatted as </span>
+<span class="sd">                    [roll pitch yaw x y z] </span>
+
+<span class="sd">            :param string armname: &quot;left&quot; or &quot;right&quot;</span>
+
+<span class="sd">            :param float duration: The desired duration of the entire motion in seconds. </span>
+<span class="sd">             </span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_send_wrist_msg</span><span class="p">([</span><span class="o">*</span><span class="n">pose</span><span class="p">],</span> <span class="n">armname</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="n">duration</span><span class="p">)</span>  </div>
 
 <div class="viewcode-block" id="DigitInterface.move_both_arms_sequentially_to_pose"><a class="viewcode-back" href="../../digitinterface.html#digitinterface.digitinterface.DigitInterface.move_both_arms_sequentially_to_pose">[docs]</a>    <span class="k">def</span> <span class="nf">move_both_arms_sequentially_to_pose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pose</span><span class="p">,</span> <span class="n">armname</span><span class="p">,</span> <span class="n">prevarmname</span><span class="p">,</span> <span class="n">prevarmpose</span><span class="p">,</span> <span class="n">duration</span><span class="o">=</span><span class="mf">2.0</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;This is a docstring for the some_method method.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Maintains the pose of one wrist as the other wrist moves to a </span>
+<span class="sd">            specified pose</span>
+
+<span class="sd">            :param List{float} pose: The desired pose of the target wrist in a python List formatted as </span>
+<span class="sd">                    [roll pitch yaw x y z] </span>
+
+<span class="sd">            :param string armname: &quot;left&quot; or &quot;right&quot;. The name of the target wrist</span>
+
+<span class="sd">            :param string prevarmname: &quot;left&quot; or &quot;right&quot;. The name of the other arm</span>
+
+<span class="sd">            :param List{float} prevarmpose: The pose at which to maintain the other arm in a python List formatted as </span>
+<span class="sd">                    [roll pitch yaw x y z] </span>
+
+<span class="sd">            :param float duration: The desired duration of the entire motion in seconds. </span>
+<span class="sd">             </span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">current_arm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">armname</span><span class="p">[</span><span class="n">armname</span><span class="p">]</span>
         <span class="n">previous_arm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">armname</span><span class="p">[</span><span class="n">prevarmname</span><span class="p">]</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;action-concurrent&quot;</span><span class="p">,</span>
@@ -261,15 +295,26 @@
         <span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>  </div>
 
-<div class="viewcode-block" id="DigitInterface.get_wrist_pose"><a class="viewcode-back" href="../../digitinterface.html#digitinterface.digitinterface.DigitInterface.get_wrist_pose">[docs]</a>    <span class="k">def</span> <span class="nf">get_wrist_pose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">armname</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;This is a docstring for the some_method method.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="DigitInterface.get_wrist_pose"><a class="viewcode-back" href="../../digitinterface.html#digitinterface.digitinterface.DigitInterface.get_wrist_pose">[docs]</a>    <span class="k">def</span> <span class="nf">get_wrist_pose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">armname</span><span class="p">,</span> <span class="n">reference_frame</span><span class="o">=</span><span class="s2">&quot;base&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the pose rpyxyz of the wrist of Digit</span>
+
+<span class="sd">            :param string armname: &quot;left&quot; or &quot;right&quot;</span>
+
+<span class="sd">            :param string reference_frame: Frame of reference of the wrist pose. </span>
+<span class="sd">                    The default is &quot;base&quot; which is the pelvis of Digit.</span>
+<span class="sd">            </span>
+<span class="sd">            :returns: The pose of the wrist in a python List formatted as </span>
+<span class="sd">                    [roll pitch yaw x y z] </span>
+
+<span class="sd">            :rtype: List{Float64} </span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">arm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">armname</span><span class="p">[</span><span class="n">armname</span><span class="p">]</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="p">[</span>
             <span class="s2">&quot;get-object-kinematics&quot;</span><span class="p">,</span>
             <span class="p">{</span>
                 <span class="s2">&quot;object&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;robot-frame&quot;</span><span class="p">:</span><span class="n">arm</span><span class="p">},</span>
                 <span class="s2">&quot;relative-to&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;robot-frame&quot;</span><span class="p">:</span><span class="s2">&quot;base&quot;</span>
+                <span class="s2">&quot;robot-frame&quot;</span><span class="p">:</span><span class="n">reference_frame</span>
                 <span class="p">},</span>
                 <span class="s2">&quot;in-coordinates-of&quot;</span><span class="p">:</span> <span class="p">{}</span>
             <span class="p">}</span>

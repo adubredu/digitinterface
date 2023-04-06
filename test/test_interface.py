@@ -21,7 +21,7 @@ while True:
 
 digit = DigitInterface(client)
 
-task = "move wrists sequentially"
+task = "move to waypoint"
 
 if task == "wrist pose":
     left_wrist_pose = digit.get_wrist_pose("left")
@@ -48,6 +48,16 @@ elif task == "move wrists sequentially":
     digit.move_wrist_to_pose(right_wrist_pose, "right", duration=1.0)
     sleep(3)
     digit.move_both_arms_sequentially_to_pose(left_wrist_pose, "left", "right", right_wrist_pose, duration=1.0)
+
+elif task == "move at velocity":
+    desired_velocity = [0.0, 0.5, 0.0]
+    digit.move_at_velocity(desired_velocity, avoid_obstacles=False)
+    sleep(10)
+
+elif task == "move to waypoint":
+    desired_waypoint = [1.57, 5.0, 5.0]
+    digit.move_to_waypoint(desired_waypoint, avoid_obstacles=False)
+    sleep(20)
 
 sleep(5)
 client.close()
