@@ -18,10 +18,14 @@ while True:
         sleep(1)
 
 digit = DigitInterface(client)
+ 
+# You can set this `task` variable to any of the following strings:
+# "get wrist pose", "move left wrist", "move right wrist", "move both wrists",
+# "move wrists sequentially", "move at velocity", "move to waypoint", 
+# "move torso to pose", "concurrent actions", "sequential actions"
+task = "move left wrist"
 
-task = "sequential actions"
-
-if task == "wrist pose":
+if task == "get wrist pose":
     left_wrist_pose = digit.get_wrist_pose("left")
     right_wrist_pose = digit.get_wrist_pose("right")
     print("left wrist pose: ",left_wrist_pose)
