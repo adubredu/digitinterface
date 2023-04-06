@@ -17,6 +17,7 @@ First start up an Agility Robotics Digit simulation session using the command be
 cd sim
 ./run_sim.sh
 ```
+Navigate to `http://localhost:8080/` in your web browser and click on `Gamepad Interface` in the list of options to visualize the simulation
 
 Next, open a new terminal and run your Python script.
 
