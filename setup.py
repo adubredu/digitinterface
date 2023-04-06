@@ -28,7 +28,6 @@ setup(
     install_requires=[
         # Add your package's dependencies here, e.g.,
         "numpy>=1.18.0",
-        "ws4py",
-        "json"
+        "ws4py", 
     ],
 )
