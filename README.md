@@ -12,4 +12,4 @@ python setup.py sdist bdist_wheel
 ```
 
 ## Usage
-Check the [examples](examples) folder for example usage. Check out the official [documentation](documentation) for more details.
+Check the [examples](examples) folder for example usage. Check out the official [documentation](https://adubredu.github.io/digitinterface) for more details.
