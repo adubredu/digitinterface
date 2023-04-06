@@ -1,5 +1,5 @@
-from digitinterface import BasicClient
-from digitinterface import DigitInterface
+from digitinterface.digitinterface import BasicClient
+from digitinterface.digitinterface import DigitInterface
 from time import sleep
 
 # websocket URIs
