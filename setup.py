@@ -11,9 +11,8 @@ setup(
     description="Python package for interacting with the Agility Robotics Digit v3 default controller interface.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/adubredu/digitinterface",
-    package_dir={"": "digitinterface"},
-    packages=find_packages(where="digitinterface"),
+    url="https://github.com/adubredu/digitinterface", 
+    packages=find_packages(),
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
