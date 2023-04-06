@@ -1,4 +1,4 @@
-theme: sphinx-rtd-theme
+theme: sphinx_rtd_theme
 show_downloads: true
 source: "https://github.com/adubredu/digitinterface"
 highlighter: rouge
