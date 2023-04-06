@@ -103,8 +103,18 @@ class DigitInterface:
           }, 0] 
         self.client.send(json.dumps(msg))
 
-    def move_both_arms_to_pose(self, lpose, rpose, duration=2.0):
-        """This is a docstring for the some_method method."""
+    def move_both_wrists_to_pose(self, lpose, rpose, duration=2.0):
+        """Moves both wrists concurrently to the specified poses
+
+            :param List{float} lpose: The desired pose of the left wrist in a python List formatted as 
+                    [roll pitch yaw x y z] 
+
+            param List{float} rpose: The desired pose of the right wrist in a python List formatted as 
+                    [roll pitch yaw x y z] 
+
+            :param float duration: The desired duration of the entire motion in seconds. 
+             
+        """
         msg = ["action-concurrent",
                 {
                     "actions": [
@@ -144,11 +154,35 @@ class DigitInterface:
         self.client.send(json.dumps(msg))
 
     def move_wrist_to_pose(self, pose, armname, duration=2.0):  
-        """This is a docstring for the some_method method."""
+        """Moves the specified wrist to the specified pose
+
+            :param List{float} pose: The desired pose of the wrist in a python List formatted as 
+                    [roll pitch yaw x y z] 
+
+            :param string armname: "left" or "right"
+
+            :param float duration: The desired duration of the entire motion in seconds. 
+             
+        """
         self._send_wrist_msg([*pose], armname, duration=duration)  
 
     def move_both_arms_sequentially_to_pose(self, pose, armname, prevarmname, prevarmpose, duration=2.0):
-        """This is a docstring for the some_method method."""
+        """Maintains the pose of one wrist as the other wrist moves to a 
+            specified pose
+
+            :param List{float} pose: The desired pose of the target wrist in a python List formatted as 
+                    [roll pitch yaw x y z] 
+
+            :param string armname: "left" or "right". The name of the target wrist
+
+            :param string prevarmname: "left" or "right". The name of the other arm
+
+            :param List{float} prevarmpose: The pose at which to maintain the other arm in a python List formatted as 
+                    [roll pitch yaw x y z] 
+
+            :param float duration: The desired duration of the entire motion in seconds. 
+             
+        """
         current_arm = self.armname[armname]
         previous_arm = self.armname[prevarmname]
         msg = ["action-concurrent",
@@ -189,15 +223,26 @@ class DigitInterface:
         ]
         self.client.send(json.dumps(msg))  
 
-    def get_wrist_pose(self, armname):
-        """This is a docstring for the some_method method."""
+    def get_wrist_pose(self, armname, reference_frame="base"):
+        """Returns the pose rpyxyz of the wrist of Digit
+
+            :param string armname: "left" or "right"
+
+            :param string reference_frame: Frame of reference of the wrist pose. 
+                    The default is "base" which is the pelvis of Digit.
+            
+            :returns The pose of the wrist in a python List formatted as 
+                    [roll pitch yaw x y z] 
+
+            :rtype List{Float64} 
+        """
         arm = self.armname[armname]
         msg = [
             "get-object-kinematics",
             {
                 "object": {"robot-frame":arm},
                 "relative-to": {
-                "robot-frame":"base"
+                "robot-frame":reference_frame
                 },
                 "in-coordinates-of": {}
             }
