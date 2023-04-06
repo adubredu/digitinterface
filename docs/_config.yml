@@ -1,4 +1,4 @@
-theme: sphinx_rtd_theme
+theme: jekyll-theme-hacker
 show_downloads: true
 source: "https://github.com/adubredu/digitinterface"
 highlighter: rouge
