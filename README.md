@@ -25,7 +25,7 @@ Next, open a new terminal and run your Python script.
 
 Check the [examples](examples) folder for usage examples. Check out the official [documentation](https://adubredu.github.io/digitinterface) for more details.
 
-To run an example script, say the `move_single_wrist.py` example, the simply run the Python script as
+To run an example Python script, say the `move_single_wrist.py` example, the simply run the Python script as
 ```bash
 python examples/move_single_wrist.py
 ```
