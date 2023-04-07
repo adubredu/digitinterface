@@ -2,6 +2,9 @@
 
 Python package for interacting with the Agility Robotics Digit v3 default controller interface.
 
+## Requirements
+Python version >= 3.6
+
 ## Installation
 To install this package, run the following commands
 ```bash
