@@ -22,7 +22,7 @@ while True:
 # create a DigitInterface object
 digit = DigitInterface(client)
 
-desired_velocity = [0.0, 0.5, 0.0]
+desired_velocity = [0.0, 0.5, 0.0] #[yaw_velocity, vx, vy]
 digit.move_at_velocity(desired_velocity, avoid_obstacles=False)
 sleep(10)
 

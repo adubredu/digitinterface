@@ -22,7 +22,7 @@ while True:
 # create a DigitInterface object
 digit = DigitInterface(client)
 
-desired_waypoint = [1.57, 5.0, 5.0]
+desired_waypoint = [1.57, 5.0, 5.0] #[yaw, x, y]
 digit.move_to_waypoint(desired_waypoint, avoid_obstacles=False)
 sleep(20)
 
