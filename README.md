@@ -25,3 +25,8 @@ Navigate to `http://localhost:8080/` in your web browser and click on `Gamepad I
 Next, open a new terminal and run your Python script.
 
 Check the [examples](examples) folder for usage examples. Check out the official [documentation](https://adubredu.github.io/digitinterface) for more details.
+
+To run an example, simply run the Python script as
+```bash
+python <example_file_name.py>
+```
