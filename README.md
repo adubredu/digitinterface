@@ -17,8 +17,7 @@ python setup.py install
 ## Usage
 First start up an Agility Robotics Digit simulation session using the command below
 ```bash
-cd sim
-./run_sim.sh
+./sim/run_sim.sh
 ```
 Navigate to `http://localhost:8080/` in your web browser and click on `Gamepad Interface` in the list of options to visualize the simulation
 
@@ -28,5 +27,5 @@ Check the [examples](examples) folder for usage examples. Check out the official
 
 To run an example script, say the `move_single_wrist.py` example, the simply run the Python script as
 ```bash
-python move_single_wrist.py
+python examples/move_single_wrist.py
 ```

@@ -1,2 +1,2 @@
 #!/bin/bash
-./ar-control lowlevelapi_stand.toml 
+./sim/ar-control sim/lowlevelapi_stand.toml 
