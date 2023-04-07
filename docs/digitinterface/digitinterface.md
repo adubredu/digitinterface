@@ -34,7 +34,7 @@ Websocket Client Class
 
 - `ip` *string* - Websocket URI. For simulation, it is "ws://127.0.0.1:8080"
             and for the physical robot, it is "ws://10.10.1.1:8080"
-:param List{string} protocols: It is always ["json-v1-agility"]
+- `protocols` *list* - It is always ["json-v1-agility"]
 
 #### Returns
 
@@ -141,7 +141,7 @@ Returns the pose rpyxyz of the wrist of Digit
 The pose of the wrist in a python List formatted as
         [roll pitch yaw x y z]
 
-Type: *List{Float64}*
+Type: *list*
 
 #### Signature
 
@@ -156,10 +156,10 @@ def get_wrist_pose(self, armname, reference_frame="base"):
 
 Commands the robot to move at a desired velocity
 
-:param List{float} waypoint: spatial velocity of the robot's base in
-            a python List formatted as [yaw_velocity, vx, vy]
-
 #### Arguments
+
+- `waypoint` *list* - spatial velocity of the robot's base in
+            a python List formatted as [yaw_velocity, vx, vy]
 
 - `execute` *bool* - Whether or not to execute this action
 
@@ -187,16 +187,16 @@ def move_at_velocity(
 Maintains the pose of one wrist as the other wrist moves to a
 specified pose
 
-:param List{float} pose: The desired pose of the target wrist in a python List formatted as
-        [roll pitch yaw x y z]
-
 #### Arguments
+
+- `pose` *list* - The desired pose of the target wrist in a python List formatted as
+        [roll pitch yaw x y z]
 
 - `armname` *string* - "left" or "right". The name of the target wrist
 
 - `prevarmname` *string* - "left" or "right". The name of the other arm
 
-:param List{float} prevarmpose: The pose at which to maintain the other arm in a python List formatted as
+- `prevarmpose` *list* - The pose at which to maintain the other arm in a python List formatted as
         [roll pitch yaw x y z]
 
 - `duration` *float* - The desired duration of the entire motion in seconds.
@@ -224,13 +224,13 @@ def move_both_arms_sequentially_to_pose(
 
 Moves both wrists concurrently to the specified poses
 
-:param List{float} lpose: The desired pose of the left wrist in a python List formatted as
-        [roll pitch yaw x y z]
-
-:param List{float} rpose: The desired pose of the right wrist in a python List formatted as
-        [roll pitch yaw x y z]
-
 #### Arguments
+
+- `lpose` *list* - The desired pose of the left wrist in a python List formatted as
+        [roll pitch yaw x y z]
+
+- `rpose` *list* - The desired pose of the right wrist in a python List formatted as
+        [roll pitch yaw x y z]
 
 - `duration` *float* - The desired duration of the entire motion in seconds.
 
@@ -255,10 +255,10 @@ def move_both_wrists_to_pose(self, lpose, rpose, duration=2.0, execute=True):
 
 Commands the robot to move to a desired waypoint
 
-:param List{float} waypoint: target waypoint to walk to in the specified reference frame
-         in a python List formatted as [yaw, x, y]
-
 #### Arguments
+
+- `waypoint` *list* - target waypoint to walk to in the specified reference frame
+         in a python List formatted as [yaw, x, y]
 
 - `execute` *bool* - Whether or not to execute this action
 
@@ -291,10 +291,10 @@ def move_to_waypoint(
 Commands the torso to move to a specified position and
 orientation relative to the center of the robot's support polygon
 
-:param List{float} pose: The desired pose of the torso in a python List formatted as
-            [roll pitch yaw x y z]
-
 #### Arguments
+
+- `pose` *list* - The desired pose of the torso in a python List formatted as
+            [roll pitch yaw x y z]
 
 - `duration` *float* - The desired duration of the entire motion in seconds.
 
@@ -319,10 +319,10 @@ def move_torso_to_pose(self, pose, duration=5.0, execute=True):
 
 Moves the specified wrist to the specified pose
 
-:param List{float} pose: The desired pose of the wrist in a python List formatted as
-        [roll pitch yaw x y z]
-
 #### Arguments
+
+- `pose` *list* - The desired pose of the wrist in a python List formatted as
+        [roll pitch yaw x y z]
 
 - `armname` *string* - "left" or "right"
 

@@ -8,7 +8,7 @@ class BasicClient(WebSocketClient):
  
         :param string ip: Websocket URI. For simulation, it is "ws://127.0.0.1:8080" 
                     and for the physical robot, it is "ws://10.10.1.1:8080"
-        :param list protocols: It is always ["json-v1-agility"]
+        :param List{string} protocols: It is always ["json-v1-agility"]
         
         :returns: A web socket object with which you can send and receive
                 JSON messages to digit as well as open or close the web 
@@ -86,10 +86,10 @@ class DigitInterface:
     def move_both_wrists_to_pose(self, lpose, rpose, duration=2.0, execute=True):
         """Moves both wrists concurrently to the specified poses
 
-            :param list lpose: The desired pose of the left wrist in a python List formatted as 
+            :param List{float} lpose: The desired pose of the left wrist in a python List formatted as 
                     [roll pitch yaw x y z] 
 
-            :param list rpose: The desired pose of the right wrist in a python List formatted as 
+            :param List{float} rpose: The desired pose of the right wrist in a python List formatted as 
                     [roll pitch yaw x y z] 
 
             :param float duration: The desired duration of the entire motion in seconds. 
@@ -143,7 +143,7 @@ class DigitInterface:
     def move_wrist_to_pose(self, pose, armname, duration=2.0, execute=True):  
         """Moves the specified wrist to the specified pose
 
-            :param list pose: The desired pose of the wrist in a python List formatted as 
+            :param List{float} pose: The desired pose of the wrist in a python List formatted as 
                     [roll pitch yaw x y z] 
 
             :param string armname: "left" or "right"
@@ -179,14 +179,14 @@ class DigitInterface:
         """Maintains the pose of one wrist as the other wrist moves to a 
             specified pose
 
-            :param list pose: The desired pose of the target wrist in a python List formatted as 
+            :param List{float} pose: The desired pose of the target wrist in a python List formatted as 
                     [roll pitch yaw x y z] 
 
             :param string armname: "left" or "right". The name of the target wrist
 
             :param string prevarmname: "left" or "right". The name of the other arm
 
-            :param list prevarmpose: The pose at which to maintain the other arm in a python List formatted as 
+            :param List{float} prevarmpose: The pose at which to maintain the other arm in a python List formatted as 
                     [roll pitch yaw x y z] 
 
             :param float duration: The desired duration of the entire motion in seconds. 
@@ -249,7 +249,7 @@ class DigitInterface:
             :returns: The pose of the wrist in a python List formatted as 
                     [roll pitch yaw x y z] 
 
-            :rtype: list
+            :rtype: List{Float64} 
         """
         arm = self.armname[armname]
         msg = [
@@ -284,7 +284,7 @@ class DigitInterface:
                         avoid_obstacles=True, obstacle_threshold=0.5, reference_frame="world", execute=True):
         """Commands the robot to move to a desired waypoint  
 
-            :param list waypoint: target waypoint to walk to in the specified reference frame
+            :param List{float} waypoint: target waypoint to walk to in the specified reference frame
                      in a python List formatted as [yaw, x, y]
 
             :param bool execute: Whether or not to execute this action 
@@ -312,7 +312,7 @@ class DigitInterface:
     def move_at_velocity(self, velocity, avoid_obstacles=True, obstacle_threshold=0.5, execute=True):
         """Commands the robot to move at a desired velocity  
 
-            :param list waypoint: spatial velocity of the robot's base in
+            :param List{float} waypoint: spatial velocity of the robot's base in
                         a python List formatted as [yaw_velocity, vx, vy]
 
             :param bool execute: Whether or not to execute this action 
@@ -341,7 +341,7 @@ class DigitInterface:
         """Commands the torso to move to a specified position and 
         orientation relative to the center of the robot's support polygon
 
-        :param list pose: The desired pose of the torso in a python List formatted as 
+        :param List{float} pose: The desired pose of the torso in a python List formatted as 
                     [roll pitch yaw x y z]  
 
         :param float duration: The desired duration of the entire motion in seconds.
