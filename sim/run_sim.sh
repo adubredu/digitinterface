@@ -1,2 +1,2 @@
 #!/bin/bash
-./sim/ar-control sim/lowlevelapi_stand.toml 
+./sim/ar-control-2022.02.22a
