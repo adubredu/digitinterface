@@ -27,3 +27,6 @@ sleep(3)
 digit.open_gripper1()
 sleep(5)
 digit.close_gripper1()
+
+sleep(5)
+client.close()
