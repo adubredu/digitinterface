@@ -10,7 +10,7 @@ To install this package, run the following commands
 ```bash
 git clone https://github.com/adubredu/digitinterface.git
 cd digitinterface
-pip install setuptools wheel ws4py
+pip install setuptools wheel ws4py pyserial
 python setup.py install
 ```
 

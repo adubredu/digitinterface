@@ -55,7 +55,7 @@ elif task == "move wrists sequentially":
     digit.move_both_arms_sequentially_to_pose(left_wrist_pose, "left", "right", right_wrist_pose, duration=1.0)
 
 elif task == "move at velocity":
-    desired_velocity = [0.0, 0.5, 0.0]
+    desired_velocity = [0.0, 0.1, 0.0]
     digit.move_at_velocity(desired_velocity, avoid_obstacles=False)
     sleep(10)
 
@@ -65,7 +65,7 @@ elif task == "move to waypoint":
     sleep(20)
 
 elif task == "move torso to pose":
-    desired_pose = [0.3, 0.4, 0.0, 0.0, 0.0, 0.7]
+    desired_pose = [0.3, 0.4, 0.0, 0.0, 0.0, 0.8]
     digit.move_torso_to_pose(desired_pose)
     sleep(10)
 

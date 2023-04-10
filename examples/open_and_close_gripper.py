@@ -22,12 +22,8 @@ while True:
 # create a DigitInterface object
 digit = DigitInterface(client)
 
-desired_pose = [0.3, 0.4, 0.0, 0.0, 0.0, 0.8] #[roll,pitch,yaw,x,y,z]
-digit.move_torso_to_pose(desired_pose)
-sleep(10)
-
-
+digit.start_up_gripper1("/dev/ttyUSB0")
+sleep(3)
+digit.open_gripper1()
 sleep(5)
-
-# close the web socket connection
-client.close()
+digit.close_gripper1()

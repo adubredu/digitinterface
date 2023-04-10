@@ -21,7 +21,7 @@ while True:
 
 digit = DigitInterface(client)
 
-task = "sequential actions"
+task = "open and close gripper1"
 
 if task == "wrist pose":
     left_wrist_pose = digit.get_wrist_pose("left")
@@ -84,6 +84,22 @@ elif task == "sequential actions":
     digit.perform_actions_sequentially([act1, act2, act3])
     sleep(20)
 
+elif task == "close gripper1":
+    digit.start_up_gripper1("/dev/ttyUSB0")
+    sleep(3)
+    digit.close_gripper1()
+
+elif task == "open gripper1":
+    digit.start_up_gripper1("/dev/ttyUSB0")
+    sleep(3)
+    digit.open_gripper1()
+
+elif task == "open and close gripper1":
+    digit.start_up_gripper1("/dev/ttyUSB0")
+    sleep(3)
+    digit.open_gripper1()
+    sleep(5)
+    digit.close_gripper1()
 
 sleep(5)
 client.close()

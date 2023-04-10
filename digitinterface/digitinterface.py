@@ -2,6 +2,7 @@ import numpy as np
 import json
 from ws4py.client.threadedclient import WebSocketClient
 from time import sleep
+import serial
 
 class BasicClient(WebSocketClient):
     """Websocket Client Class
@@ -81,6 +82,8 @@ class DigitInterface:
         self.client = client 
         self.armname = {'right':'right-hand', 'left':'left-hand'}
         self.arm_id = {'right':0, 'left':1}
+        self.gripper1 = None 
+        self.gripper2 = None
 
 # arm motion
     def move_both_wrists_to_pose(self, lpose, rpose, duration=2.0, execute=True):
@@ -269,14 +272,57 @@ class DigitInterface:
 
 
 # gripper motion
-    def close_gripper(self, armname):
-        """This is a docstring for the some_method method."""
-        pass
+    def start_up_gripper1(self, serialport, baudrate=9600):
+        """Creates a serial object for gripper 1
 
+        :param string serialport: The path to Gripper 1's serial port. It should
+                look like "/dev/tty/USBX" where "X" is a number
 
-    def open_gripper(self, armname):
-        """This is a docstring for the some_method method."""
-        pass
+        :param int baudrate: The baud rate of the serial communication. 
+
+        """
+        if self.gripper1 is None:
+            self.gripper1 = serial.Serial(serialport, baudrate)       
+
+    def start_up_gripper2(self, serialport, baudrate=9600):
+        """Creates a serial object for gripper 2
+
+        :param string serialport: The path to Gripper 2's serial port. It should
+                look like "/dev/tty/USBX" where "X" is a number
+
+        :param int baudrate: The baud rate of the serial communication. 
+
+        """
+        if self.gripper2 is None:
+            self.gripper2 = serial.Serial(serialport, baudrate) 
+
+    def close_gripper1(self):
+        """Closes the fingers of Gripper 1"""
+        if self.gripper1 is None:
+            print("Gripper 1 not initialized")
+            return
+        self.gripper1.write(b'c')
+
+    def open_gripper1(self):
+        """Opens the fingers of Gripper 1"""
+        if self.gripper1 is None:
+            print("Gripper 1 not initialized")
+            return
+        self.gripper1.write(b'o')
+
+    def close_gripper2(self):
+        """Closes the fingers of Gripper 2"""
+        if self.gripper2 is None:
+            print("Gripper 2 not initialized")
+            return
+        self.gripper2.write(b'c')
+
+    def open_gripper2(self):
+        """Opens the fingers of Gripper 2"""
+        if self.gripper2 is None:
+            print("Gripper 2 not initialized")
+            return
+        self.gripper2.write(b'o')
 
 
 # locomotion
