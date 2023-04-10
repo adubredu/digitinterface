@@ -1,4 +1,4 @@
-theme: jekyll-theme-hacker
+theme: jekyll-theme-cayman
 show_downloads: true
 source: "https://github.com/adubredu/digitinterface"
 highlighter: rouge

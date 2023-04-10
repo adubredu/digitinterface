@@ -12,7 +12,8 @@ DigitInterface
     - [BasicClient().opened](#basicclient()opened)
     - [BasicClient().received_message](#basicclient()received_message)
   - [DigitInterface](#digitinterface-1)
-    - [DigitInterface().close_gripper](#digitinterface()close_gripper)
+    - [DigitInterface().close_gripper1](#digitinterface()close_gripper1)
+    - [DigitInterface().close_gripper2](#digitinterface()close_gripper2)
     - [DigitInterface().get_wrist_pose](#digitinterface()get_wrist_pose)
     - [DigitInterface().move_at_velocity](#digitinterface()move_at_velocity)
     - [DigitInterface().move_both_arms_sequentially_to_pose](#digitinterface()move_both_arms_sequentially_to_pose)
@@ -20,13 +21,16 @@ DigitInterface
     - [DigitInterface().move_to_waypoint](#digitinterface()move_to_waypoint)
     - [DigitInterface().move_torso_to_pose](#digitinterface()move_torso_to_pose)
     - [DigitInterface().move_wrist_to_pose](#digitinterface()move_wrist_to_pose)
-    - [DigitInterface().open_gripper](#digitinterface()open_gripper)
+    - [DigitInterface().open_gripper1](#digitinterface()open_gripper1)
+    - [DigitInterface().open_gripper2](#digitinterface()open_gripper2)
     - [DigitInterface().perform_actions_concurrently](#digitinterface()perform_actions_concurrently)
     - [DigitInterface().perform_actions_sequentially](#digitinterface()perform_actions_sequentially)
+    - [DigitInterface().start_up_gripper1](#digitinterface()start_up_gripper1)
+    - [DigitInterface().start_up_gripper2](#digitinterface()start_up_gripper2)
 
 ## BasicClient
 
-[Show source in digitinterface.py:6](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L6)
+[Show source in digitinterface.py:7](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L7)
 
 Websocket Client Class
 
@@ -53,7 +57,7 @@ class BasicClient(WebSocketClient):
 
 ### BasicClient().closed
 
-[Show source in digitinterface.py:31](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L31)
+[Show source in digitinterface.py:32](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L32)
 
  Sends the privilege request command over the web socket to Digit
 to request command privilege for the user.
@@ -67,7 +71,7 @@ def closed(self, code, reason):
 
 ### BasicClient().opened
 
-[Show source in digitinterface.py:19](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L19)
+[Show source in digitinterface.py:20](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L20)
 
 Sends the privilege request command over the web socket to Digit
 to request command privilege for the user.
@@ -81,7 +85,7 @@ def opened(self):
 
 ### BasicClient().received_message
 
-[Show source in digitinterface.py:37](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L37)
+[Show source in digitinterface.py:38](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L38)
 
 Receives message from Digit through the web socket connection
 
@@ -100,7 +104,7 @@ def received_message(self, m):
 
 ## DigitInterface
 
-[Show source in digitinterface.py:70](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L70)
+[Show source in digitinterface.py:71](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L71)
 
 #### Signature
 
@@ -110,22 +114,35 @@ class DigitInterface:
         ...
 ```
 
-### DigitInterface().close_gripper
+### DigitInterface().close_gripper1
 
-[Show source in digitinterface.py:272](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L272)
+[Show source in digitinterface.py:299](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L299)
 
-This is a docstring for the some_method method.
+Closes the fingers of Gripper 1
 
 #### Signature
 
 ```python
-def close_gripper(self, armname):
+def close_gripper1(self):
+    ...
+```
+
+### DigitInterface().close_gripper2
+
+[Show source in digitinterface.py:313](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L313)
+
+Closes the fingers of Gripper 2
+
+#### Signature
+
+```python
+def close_gripper2(self):
     ...
 ```
 
 ### DigitInterface().get_wrist_pose
 
-[Show source in digitinterface.py:241](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L241)
+[Show source in digitinterface.py:244](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L244)
 
 Returns the pose rpyxyz of the wrist of Digit
 
@@ -152,7 +169,7 @@ def get_wrist_pose(self, armname, reference_frame="base"):
 
 ### DigitInterface().move_at_velocity
 
-[Show source in digitinterface.py:312](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L312)
+[Show source in digitinterface.py:358](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L358)
 
 Commands the robot to move at a desired velocity
 
@@ -182,7 +199,7 @@ def move_at_velocity(
 
 ### DigitInterface().move_both_arms_sequentially_to_pose
 
-[Show source in digitinterface.py:178](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L178)
+[Show source in digitinterface.py:181](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L181)
 
 Maintains the pose of one wrist as the other wrist moves to a
 specified pose
@@ -220,7 +237,7 @@ def move_both_arms_sequentially_to_pose(
 
 ### DigitInterface().move_both_wrists_to_pose
 
-[Show source in digitinterface.py:86](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L86)
+[Show source in digitinterface.py:89](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L89)
 
 Moves both wrists concurrently to the specified poses
 
@@ -251,7 +268,7 @@ def move_both_wrists_to_pose(self, lpose, rpose, duration=2.0, execute=True):
 
 ### DigitInterface().move_to_waypoint
 
-[Show source in digitinterface.py:283](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L283)
+[Show source in digitinterface.py:329](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L329)
 
 Commands the robot to move to a desired waypoint
 
@@ -286,7 +303,7 @@ def move_to_waypoint(
 
 ### DigitInterface().move_torso_to_pose
 
-[Show source in digitinterface.py:340](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L340)
+[Show source in digitinterface.py:386](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L386)
 
 Commands the torso to move to a specified position and
 orientation relative to the center of the robot's support polygon
@@ -315,7 +332,7 @@ def move_torso_to_pose(self, pose, duration=5.0, execute=True):
 
 ### DigitInterface().move_wrist_to_pose
 
-[Show source in digitinterface.py:143](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L143)
+[Show source in digitinterface.py:146](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L146)
 
 Moves the specified wrist to the specified pose
 
@@ -343,22 +360,35 @@ def move_wrist_to_pose(self, pose, armname, duration=2.0, execute=True):
     ...
 ```
 
-### DigitInterface().open_gripper
+### DigitInterface().open_gripper1
 
-[Show source in digitinterface.py:277](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L277)
+[Show source in digitinterface.py:306](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L306)
 
-This is a docstring for the some_method method.
+Opens the fingers of Gripper 1
 
 #### Signature
 
 ```python
-def open_gripper(self, armname):
+def open_gripper1(self):
+    ...
+```
+
+### DigitInterface().open_gripper2
+
+[Show source in digitinterface.py:320](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L320)
+
+Opens the fingers of Gripper 2
+
+#### Signature
+
+```python
+def open_gripper2(self):
     ...
 ```
 
 ### DigitInterface().perform_actions_concurrently
 
-[Show source in digitinterface.py:365](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L365)
+[Show source in digitinterface.py:411](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L411)
 
 Execute a list of actions simultaneously
 
@@ -383,7 +413,7 @@ def perform_actions_concurrently(self, actions, execute=True):
 
 ### DigitInterface().perform_actions_sequentially
 
-[Show source in digitinterface.py:383](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L383)
+[Show source in digitinterface.py:429](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L429)
 
 Execute a list of actions sequentially
 
@@ -403,5 +433,45 @@ Type: *list*
 
 ```python
 def perform_actions_sequentially(self, actions, execute=True):
+    ...
+```
+
+### DigitInterface().start_up_gripper1
+
+[Show source in digitinterface.py:275](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L275)
+
+Creates a serial object for gripper 1
+
+#### Arguments
+
+- `serialport` *string* - The path to Gripper 1's serial port. It should
+        look like "/dev/tty/USBX" where "X" is a number
+
+- `baudrate` *int* - The baud rate of the serial communication.
+
+#### Signature
+
+```python
+def start_up_gripper1(self, serialport, baudrate=9600):
+    ...
+```
+
+### DigitInterface().start_up_gripper2
+
+[Show source in digitinterface.py:287](https://github.com/adubredu/digitinterface/blob/main/digitinterface/digitinterface.py#L287)
+
+Creates a serial object for gripper 2
+
+#### Arguments
+
+- `serialport` *string* - The path to Gripper 2's serial port. It should
+        look like "/dev/tty/USBX" where "X" is a number
+
+- `baudrate` *int* - The baud rate of the serial communication.
+
+#### Signature
+
+```python
+def start_up_gripper2(self, serialport, baudrate=9600):
     ...
 ```
